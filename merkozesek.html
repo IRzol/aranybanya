@@ -11,7 +11,14 @@
             color: white;
             margin: 0;
             padding: 20px;
+            background-image: url('stadion2.jpg');
+            background-size: cover;
+            background-position: center-bottom;
+            background-repeat: no-repeat;
+            position: relative;
         }
+        
+        
         h1 {
             text-align: center;
             margin-bottom: 40px;
@@ -36,11 +43,38 @@
         tr:hover {
             background-color: #555;
         }
+        nav {
+        background-color: black;
+        color: white;
+        padding: 15px 30px;
+        font-size: 1.5em;
+        position: relative;
+        z-index: 1;
+
+        display: flex;
+        justify-content: flex-end; 
+        align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            background-color: red;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
+    <nav>
+        <a href="gonzo.html">Kezdőlap</a>
+        <a href="merkozesek.html">Mérkőzések</a>
+    </nav>
     <h1>Elkövetkező mérkőzések</h1>
-
     <table>
         <thead>
             <tr>
@@ -69,7 +103,7 @@
                 <td>City Warriors</td>
                 <td>Gonzales Stadion</td>
             </tr>
-            <!-- Itt adhatsz hozzá további meccseket -->
+        
         </tbody>
     </table>
 
