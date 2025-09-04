@@ -10,24 +10,24 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background-color: #1C1C1C;
+            background-color: #1C1C1C; /* Fekete háttér, ha a kép nem töltődik be */
         }
 
-       
+        /* Háttérkép beállítása */
         .background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('stadium.jpeg'); 
+            background-image: url('stadium.jpeg'); /* Cseréld ki a stadion képének elérési útjára */
             background-size: cover;
             background-position: center;
-            filter: blur(6px); 
-            z-index: -1; 
+            filter: blur(6px); /* Elmosás */
+            z-index: -1; /* A háttér alá helyezése */
         }
 
-      
+        /* Navigációs sáv (navbar) */
         nav {
             background-color: black;
             color: white;
@@ -68,41 +68,77 @@
         h1 {
             font-size: 3em;
             margin: 20px 0;
-            color: black; 
+            color: black; /* Fekete szín */
         }
 
         .content {
             text-align: center;
             padding: 50px 20px;
             position: relative;
-            z-index: 1;
+            
         }
 
         .content h2 {
             font-size: 2.5em;
             margin-bottom: 20px;
-            color: white;
+            color: white; /* Arany szín */
             text-transform: uppercase;
         }
 
         p{
             font-size: 1.5em
         }
+        .container {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 15px;
+      width: 300px;
+        }
+        select {
+        width: 100%;
+        padding: 10px;
+        margin: 15px 0;
+        border-radius: 5px;
+        border: none;
+        font-size: 1em;
+        }
+        #stadium {
+        margin-top: 10px;
+        font-size: 1.1em;
+        min-height: 24px;
+        font-weight: bold;
+        }
+        button {
+        margin-top: 25px;
+        padding: 12px 25px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 5px;
+        background-color: #e63946;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 100%;
+        }
+        button:hover {
+        background-color: #d62828;
+        }
     </style>
 </head>
 <body>
 
-
+<!-- Háttérkép -->
 <div class="background"></div>
 
-
+<!-- Navigációs sáv -->
 <nav>
     <a href="gonzo.html">Kezdőlap</a>
     <a href="merkozesek.html">Mérkőzések</a>
 </nav>
 
 <header>
-    <img src="gonzales.png" alt="Gonzales Foci Logo"> 
+    <img src="gonzales.png" alt="Gonzales Foci Logo"> <!-- Cseréld ki a logó helyét -->
 
 </header>
 
@@ -110,6 +146,75 @@
     <h2>Friss hírek és események a világ futballjából!</h2>
     <p>Legyél naprakész a legújabb mérkőzésekkel és statisztikákkal!</p>
 </div>
+
+<div class="container">
+    <label for="team1">1. Csapat:</label>
+    <select id="team1">
+      <option value="">-- Válassz csapatot --</option>
+    </select>
+
+    <label for="team2">2. Csapat:</label>
+    <select id="team2">
+      <option value="">-- Válassz csapatot --</option>
+    </select>
+
+    <div id="stadium">Helyszín: -</div>
+
+    <button id="buyTickets" disabled>Jegy vásárlás</button>
+  </div>
+
+  <script>
+    const teams = ["Új Pest", "DVTK", "Ferencváros", "Kazincbarcika", "Paks", "DVSC"];
+    const stadiums = {
+      "Új Pest": "Új Pest Stadion",
+      "DVTK": "DVTK Stadion",
+      "Ferencváros": "Ferencváros Stadion",
+      "Kazincbarcika": "Kazincbarcika Stadion",
+      "Paks": "Paks Városi Stadion",
+      "DVSC": "DVSC Stadion"
+    };
+
+    const team1Select = document.getElementById("team1");
+    const team2Select = document.getElementById("team2");
+    const stadiumDiv = document.getElementById("stadium");
+    const buyBtn = document.getElementById("buyTickets");
+
+    // Feltöltjük a select-eket csapatokkal
+    function fillSelect(selectElem) {
+      teams.forEach(team => {
+        const option = document.createElement("option");
+        option.value = team;
+        option.textContent = team;
+        selectElem.appendChild(option);
+      });
+    }
+
+    fillSelect(team1Select);
+    fillSelect(team2Select);
+
+    // Frissíti a helyszínt és gomb engedélyezést
+    function updateStadium() {
+      const team1 = team1Select.value;
+      const team2 = team2Select.value;
+
+      if (team1 && team2 && team1 !== team2) {
+        // A helyszín legyen az első csapat stadionja, vagy mindkettő megjelenítése
+        stadiumDiv.textContent = `Helyszín: ${stadiums[team1]} és ${stadiums[team2]}`;
+        buyBtn.disabled = false;
+      } else {
+        stadiumDiv.textContent = "Helyszín: -";
+        buyBtn.disabled = true;
+      }
+    }
+
+    team1Select.addEventListener("change", updateStadium);
+    team2Select.addEventListener("change", updateStadium);
+
+    buyBtn.addEventListener("click", () => {
+      alert(`Jegyvásárlás: ${team1Select.value} - ${team2Select.value}`);
+      // Itt lehet tovább vinni a vásárlási folyamatot
+    });
+  </script>
 
 </body>
 </html>
